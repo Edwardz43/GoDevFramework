@@ -3,6 +3,7 @@ package user
 import (
 	"Edwardz43/godevframework/models"
 	"database/sql"
+	"log"
 )
 
 // PostgreUserRepository ...
@@ -12,7 +13,7 @@ type PostgreUserRepository struct {
 
 func checkErr(err error) {
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 }
 
@@ -52,6 +53,15 @@ func (r *PostgreUserRepository) FindOne(id string) (*models.User, error) {
 }
 
 // Update ..
-func (r *PostgreUserRepository) Update(name, email string) (bool, error) {
-	return false, nil
+func (r *PostgreUserRepository) Update(id, name, email string) (bool, error) {
+	statement := "UPDATE public.\"User\" SET name=$1, email=$2 WHERE id=$3;"
+
+	result, err := r.db.Exec(statement, name, email, id)
+	if err != nil {
+		return false, err
+	}
+
+	i, err := result.RowsAffected()
+
+	return i == 1, nil
 }
