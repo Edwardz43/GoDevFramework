@@ -37,3 +37,12 @@ func TestFindOne(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotEqual(t, u.ID, "")
 }
+
+func TestUpdate(t *testing.T) {
+	tag := time.Now().Unix()
+	name := fmt.Sprintf("TestUser%d", tag)
+	email := fmt.Sprintf("%d@testmail.org", tag)
+	isSucess, err := userRepo.Update("1", name, email)
+	assert.Nil(t, err)
+	assert.True(t, isSucess)
+}
