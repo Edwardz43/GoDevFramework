@@ -6,5 +6,5 @@ import "Edwardz43/godevframework/models"
 type UserRepository interface {
 	Create(name, email string) (bool, error)
 	FindOne(id string) (*models.User, error)
-	Update(name, email string) (bool, error)
+	Update(id, name, email string) (bool, error)
 }
