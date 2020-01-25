@@ -1,6 +1,7 @@
 package user_test
 
 import (
+	"Edwardz43/godevframework/config"
 	"Edwardz43/godevframework/repositories/user"
 	"database/sql"
 	"fmt"
@@ -14,7 +15,7 @@ import (
 var userRepo *user.PostgreUserRepository
 
 func init() {
-	connStr := "user=admin password=test dbname=postgres sslmode=disable"
+	connStr := config.Database()
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
