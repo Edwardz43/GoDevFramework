@@ -1,6 +1,7 @@
 package api
 
 import (
+	"Edwardz43/godevframework/config"
 	"Edwardz43/godevframework/models"
 	repository "Edwardz43/godevframework/repositories"
 	"Edwardz43/godevframework/repositories/user"
@@ -18,7 +19,7 @@ var (
 
 // Init ..
 func (s *Service) Init() {
-	connStr := "user=admin password=test dbname=postgres sslmode=disable"
+	connStr := config.Database()
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
