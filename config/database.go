@@ -9,8 +9,11 @@ import (
 // Database sets data base configurarion
 func Database() string {
 	var connectionString string
-	viper.SetConfigFile("../.env")
-	viper.SetConfigFile("../../.env")
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("../")
+	viper.AddConfigPath("../../")
 	err := viper.ReadInConfig()
 
 	if err != nil {
