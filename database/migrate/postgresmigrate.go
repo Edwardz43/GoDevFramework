@@ -29,9 +29,10 @@ func (m *PostgresMigration) Migrate() (bool, error) {
 
 	_, err = db.Exec(
 		`Create table IF NOT EXISTS "User" (
-			id serial,
-			name varchar(20),
-			email varchar(50)
+			id serial NOT NULL,
+			name varchar(20) NOT NULL,
+			email varchar(50) NOT NULL,
+			CONSTRAINT "User_pkey" PRIMARY KEY (id)
 		);`)
 	if err != nil {
 		return false, err
