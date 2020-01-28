@@ -15,3 +15,12 @@ func TestGET(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotEmpty(t, msg)
 }
+
+func TestPOST(t *testing.T) {
+	service := myHttp.GetInstance()
+
+	msg, err := service.POST("http://google.com", "")
+
+	assert.Nil(t, err)
+	assert.NotEmpty(t, msg)
+}
