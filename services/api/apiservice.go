@@ -6,30 +6,32 @@ import (
 	repository "Edwardz43/godevframework/repositories"
 	"Edwardz43/godevframework/repositories/user"
 	"database/sql"
-	_ "github.com/lib/pq"
 	"log"
+
+	_ "github.com/lib/pq"
 )
 
 // Service ...
-type Service struct{}
-
-var (
+type Service struct {
 	userRepo repository.UserRepository
-)
+}
 
-// Init ..
-func (s *Service) Init() {
+// GetInstance ...
+func GetInstance() *Service {
 	connStr := config.Database()
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	userRepo = user.GetInstance(db)
+
+	return &Service{
+		userRepo: user.GetInstance(db),
+	}
 }
 
 // CreateNewUser ...
 func (s *Service) CreateNewUser(name, email string) bool {
-	bool, err := userRepo.Create(name, email)
+	bool, err := s.userRepo.Create(name, email)
 	if err != nil {
 		return false
 	}
@@ -38,7 +40,7 @@ func (s *Service) CreateNewUser(name, email string) bool {
 
 // FindUserByID ...
 func (s *Service) FindUserByID(id string) *models.User {
-	u, err := userRepo.FindOne(id)
+	u, err := s.userRepo.FindOne(id)
 	if err != nil {
 		return nil
 	}

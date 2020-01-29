@@ -11,8 +11,7 @@ var (
 )
 
 func init() {
-	apiservice := new(api.Service)
-	apiservice.Init()
+	apiservice = api.GetInstance()
 }
 
 // CreateUser ...
