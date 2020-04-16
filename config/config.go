@@ -1,8 +1,6 @@
 package config
 
 import (
-	"log"
-
 	"github.com/spf13/viper"
 )
 
@@ -12,10 +10,11 @@ func init() {
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("../")
 	viper.AddConfigPath("../../")
-	err := viper.ReadInConfig()
+	viper.AddConfigPath("../../../")
+	_ = viper.ReadInConfig()
 
-	if err != nil {
-		log.Fatalf("Error while reading config file %s", err)
-	}
+	// if err != nil {
+	// 	log.Fatalf("Error while reading config file %s", err)
+	// }
 
 }
